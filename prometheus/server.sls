@@ -36,6 +36,11 @@ prometheus_defaults:
         web_console_libraries: {{ prometheus.server.version_path }}/console_libraries
         web_console_templates: {{ prometheus.server.version_path }}/consoles
 
+prometheus_rules:
+  file.managed:
+    - name: {{ prometheus.server.args.first_rules_file }}
+    - source: salt://prometheus/files/alerts.yml
+
 {%- if prometheus.server.args.storage.local_path is defined %}
 prometheus_storage_local_path:
   file.directory:

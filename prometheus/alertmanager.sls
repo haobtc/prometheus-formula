@@ -25,7 +25,8 @@ alertmanager_config:
     - group: {{ prometheus.group }}
     - dataset_pillar: prometheus:alertmanager:config
 
-alertmanager_config:
+{#
+alertmanager_config_file:
   file.managed:
     - name: {{ prometheus.alertmanager.args.config_file }}
     - source: salt://prometheus/files/config.jinja
@@ -35,6 +36,7 @@ alertmanager_config:
     - makedirs: True
     - defaults:
         data: {{ prometheus.alertmanager.config }}
+#}
 
 alertmanager_defaults:
   file.managed:

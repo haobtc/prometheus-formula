@@ -1,0 +1,11 @@
+groups:
+- name: alert
+  rules:
+  - alert: CPUUsage
+    expr: ceil(100 * (1 - avg by(instance)(irate(node_cpu{mode='idle'}[3m])))) > 0.01
+    for: 5s
+    labels:
+      severity: page
+    annotations:
+      summary: "High CPU Usage"
+      description: "[{{.Labels.instance}}]: cpu usage {{$value}}%, exceeds 70%"
